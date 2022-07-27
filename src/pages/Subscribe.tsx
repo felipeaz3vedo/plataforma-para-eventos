@@ -1,6 +1,32 @@
-import { Logo } from "../components/logo";
+import { gql, useMutation } from "@apollo/client";
+import { useState, FormEvent } from "react";
+import { Logo } from "../components/Logo";
+
+const CREATE_SUBSCRIBE_MUTATION = gql`
+  mutation CreateSubscriber($name: String!, $email: String!) {
+    createSubscriber(data: { name: $name, email: $email }) {
+      id
+    }
+  }
+`;
 
 export function Subscribe() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const [createSubscriber] = useMutation(CREATE_SUBSCRIBE_MUTATION);
+
+  function handleSubscribe(event: FormEvent) {
+    event.preventDefault();
+
+    createSubscriber({
+      variables: {
+        name,
+        email,
+      },
+    });
+  }
+
   return (
     <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center">
       <div className="w-full max-w-[1100px] flex items-center justify-between mt-20 mx-auto">
@@ -23,21 +49,26 @@ export function Subscribe() {
               Inscreva-se Gratuitamente
             </strong>
 
-            <form action="" className="flex flex-col gap-2 w-full">
+            <form
+              onSubmit={handleSubscribe}
+              className="flex flex-col gap-2 w-full"
+            >
               <input
                 className="bg-gray-900 rounded px-5 h-14"
                 type="text"
                 placeholder="Seu nome completo"
+                onChange={(event) => setName(event.target.value)}
               />
 
               <input
                 className="bg-gray-900 rounded px-5 h-14"
                 type="email"
                 placeholder="Digite o seu e-mail"
+                onChange={(event) => setEmail(event.target.value)}
               />
 
               <button
-                className="mt-4 bg-green-500 uppercase py-4 rounded font-bold text-sm hover:bg-green-700 transition-colors"
+                className="mt-4 bg-green-500 uppercase py-4 rounded font-bold text-sm hover:bg-green-700 transition-colors disabled:opacity-50"
                 type="submit"
               >
                 Garantir minha vaga
@@ -51,4 +82,7 @@ export function Subscribe() {
       </div>
     </div>
   );
+}
+function CREATE_SUBSCRIBE(CREATE_SUBSCRIBE: any): {} {
+  throw new Error("Function not implemented.");
 }
