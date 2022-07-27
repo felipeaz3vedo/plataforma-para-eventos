@@ -1,5 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import { useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { Logo } from "../components/Logo";
 
 const CREATE_SUBSCRIBE_MUTATION = gql`
@@ -11,20 +12,25 @@ const CREATE_SUBSCRIBE_MUTATION = gql`
 `;
 
 export function Subscribe() {
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  const [createSubscriber] = useMutation(CREATE_SUBSCRIBE_MUTATION);
+  const [createSubscriber, { loading }] = useMutation(
+    CREATE_SUBSCRIBE_MUTATION
+  );
 
-  function handleSubscribe(event: FormEvent) {
+  async function handleSubscribe(event: FormEvent) {
     event.preventDefault();
 
-    createSubscriber({
+    await createSubscriber({
       variables: {
         name,
         email,
       },
     });
+    navigate("/event");
   }
 
   return (
@@ -43,6 +49,7 @@ export function Subscribe() {
             oportunidades do mercado.
           </p>
         </div>
+
         <div>
           <div className="p-8 bg-gray-700 border border-gray-500 rounded">
             <strong className="text-2xl mb-6 block">
@@ -68,8 +75,9 @@ export function Subscribe() {
               />
 
               <button
-                className="mt-4 bg-green-500 uppercase py-4 rounded font-bold text-sm hover:bg-green-700 transition-colors disabled:opacity-50"
                 type="submit"
+                disabled={loading}
+                className="mt-4 bg-green-500 uppercase py-4 rounded font-bold text-sm hover:bg-green-700 transition-colors disabled:opacity-50"
               >
                 Garantir minha vaga
               </button>
@@ -82,7 +90,4 @@ export function Subscribe() {
       </div>
     </div>
   );
-}
-function CREATE_SUBSCRIBE(CREATE_SUBSCRIBE: any): {} {
-  throw new Error("Function not implemented.");
 }
