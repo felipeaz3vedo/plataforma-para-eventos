@@ -10,6 +10,7 @@ import {
 import "@vime/core/themes/default.css"; //olhar como configura as features do video
 import { LoaderSpin } from "./LoaderSpin";
 import { useGetLessonBySlugQuery } from "../graphql/generated";
+import { LogoFooter } from "./LogoFooter";
 
 interface VideoProps {
   lessonSlug: string;
@@ -28,7 +29,7 @@ export function Video(props: VideoProps) {
   console.log(data?.lesson.videoId);
   return (
     <div className="flex-1">
-      <div className="bg-black flex justify-center">
+      <div className="bg-gray-900 flex justify-center">
         <div className="h-full w-full max-w-[1100px] max-h-[60vh] aspect-video">
           <Player>
             <Youtube videoId={data.lesson.videoId!} />
@@ -50,7 +51,7 @@ export function Video(props: VideoProps) {
                   src={data?.lesson.teacher.avatarURL}
                   alt=""
                 />
-                <div className="leading-relaxed">
+                <div className="flex flex-col items-start justify-center leading-relaxed">
                   <strong className="font-bold text 2xl block">
                     {data?.lesson.teacher.name}
                   </strong>
@@ -119,6 +120,19 @@ export function Video(props: VideoProps) {
           </a>
         </div>
       </div>
+      <footer className="flex max-w-[95%]  text-gray-300 py-6 border-t mx-auto border-gray-600">
+        <div className="flex w-full items-center justify-between">
+          <div className="flex gap-6 items-center">
+            <div>
+              <LogoFooter />
+            </div>
+            <p>Rocketseat - Todos os direitos reservados </p>
+          </div>
+          <div>
+            <p>Políticas de privacidade</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

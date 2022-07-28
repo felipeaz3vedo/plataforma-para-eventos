@@ -21,7 +21,7 @@ export function Subscribe() {
         email,
       },
     });
-    navigate("/event/lesson/aula-01-conhecendo-o-curso");
+    navigate("/event/lesson/aula-01-conhecendo-o-projeto");
   }
 
   return (
