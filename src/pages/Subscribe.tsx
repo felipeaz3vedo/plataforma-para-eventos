@@ -76,9 +76,7 @@ export function Subscribe() {
           </div>
         </div>
       </div>
-      <div>
-        <img src="/src/assets/code-plataform.png" className="mt-10" alt="" />
-      </div>
+      <div className="bg-codeImage lg:h-[650px] lg:w-[1216px] lg:visible invisible"></div>
     </div>
   );
 }

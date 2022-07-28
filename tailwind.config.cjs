@@ -4,11 +4,12 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        blur: 'url(/src/assets/blur-background.png)',
+        blur: "url(/src/assets/images/blur-background.png)", 
+        codeImage: "url(/src/assets/images/code-plataform.png)", 
       },
       fontFamily: {
         sans: "Roboto, sans-serif",
-      }, 
+      },
       colors: {
         green: {
           300: "#00B37E",
